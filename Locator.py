@@ -1,25 +1,15 @@
 import requests
-import json
-
-# response = requests.get('https://api-ubt.mukuru.com/taurus/v1/resources/pay-out-partners/7813/locations')
+import csv
 
 
-#ask for user input so to retrieve the pay out partner name if they know it
-# name = input("Insert pay out partner name: ")
-
-# iterate through various dicts so to match pay-out-partner
-
-
-#We iterate through these dictionaries to find pay out partner
-def find_pay_partner():
+def find_pay_partner(found_partner=None):
     response = requests.get('https://api-ubt.mukuru.com/taurus/v1/resources/pay-out-partners')
     
     if response.status_code == 200:
-        pay_out_partner_name = input("Insert pay out partner name: ")
         all_entries = response.json()
         
         for element in all_entries["items"]:
-            if element["name"] == pay_out_partner_name:
+            if element["name"] == "ZB Bank (Formerly Zimbank)" or element["name"] == "CABS":
                 found_partner = element
                 print("Found:", found_partner)
                 return found_partner
@@ -28,19 +18,45 @@ def find_pay_partner():
         print("Failed to retrieve data.")
     return found_partner
 
+
 def grab_guid(guid):
     name = guid["guid"]
-    print(name)
+    return name
 
-def find_address():
-    pass   
+
+def find_specific_partner_details(guid_num):
+    specific_partner = 'https://api-ubt.mukuru.com/taurus/v1/resources/pay-out-partners/'
+    add_guid = guid_num + "/locations"
+    specific_partner = requests.get(specific_partner + add_guid)
+    return specific_partner
+
+
+def find_partner_details(specific_partner):
+    entries = specific_partner.json()
+    branches = []
+    for item in entries["items"]:
+        branches.append(item)
+    return branches
+
+
+def extract_all_addresses(all_branches):
+    with open('partner_branches.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Branch Name", "Address"])  # Write the header row
+        
+        # Write each branch's name and address to the CSV
+        for branch in all_branches:
+            writer.writerow([branch['name'], branch['address']])
+            
+    print("Data has been written to partner_branches.csv")
+
 
 def main():
     var = find_pay_partner()
-    grab_guid(var)
+    if var:
+        guid_number = grab_guid(var)
+        partner_branch_addresses = find_specific_partner_details(guid_number)
+        all_branches = find_partner_details(partner_branch_addresses)
+        extract_all_addresses(all_branches)
+
 main()
-    
-
-
-# payOutPartnerGuid = response.json()["items"][3]["guid"]
-# print(payOutPartnerGuid)
