@@ -6,20 +6,30 @@
 }
 body{
     /* background-image:url(../template/Mukuru-Booth.jpeg); */
-    /* background-image:url(../template/Mukuru-Payfast-1080x720.jpg);  */
-    background-color: #f3e7e7;
+    background-image:url(../template/GirlMukuru.png);
+    /* background-image:url(../template/whiteOrange.png); */
+
+    background-color: #3d607a;
     font-family: 'Poppins', sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
 }
 
 .main-bar{
     display: flow-root;
     padding: 0 10%;
 }
-.image{
-    float: right;
-    width: 33.33%;
-    padding: 5px;
-}
+/* .image{ 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+} */
+/* .secondImage{ 
+    background-position:right;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+} */
 
 
 #check{
@@ -67,10 +77,11 @@ body{
     right: 10%;
     width: 200px;
     background-color: #ffe10a;
+    /* background-color: #36352f; */
 }
 
 .logo a{
-    color: #22272b;
+    color: #437eaf;
     font-size: 33px;
     font-weight: 600;
     line-height: 70px;
@@ -85,6 +96,7 @@ nav ul li{
     display: inline-block;
     line-height: 70px;
     border-radius: 14px;
+    color: #020101;
 }
 
 nav li.active a{
@@ -99,7 +111,7 @@ nav li a{
     margin-bottom: 8px;
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
+    color: #161515;
     opacity: 1;
     text-decoration: none;
     transition: all 0.5s;
@@ -134,7 +146,7 @@ nav li:hover a{
 }
 
 .checkbtn span{
-    background-color: #fff;
+    background-color: #131212;
     display: block;
     position: absolute;
     height: 2px;
@@ -170,7 +182,7 @@ nav li:hover a{
         position: fixed;
         width: 350px;
         height: 100vh;
-        background: #22272b;
+        background: #a3b6c5;
         top: 68px;
         left:-100%;
         text-align: center;
