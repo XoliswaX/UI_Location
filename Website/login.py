@@ -4,15 +4,16 @@ from firebase_admin import credentials, auth
 import requests
 import os
 
-app = Flask(__name__)
+from flask import Blueprint  # Correct import
 
-# Load the Firebase Admin SDK credentials
+# Define the Blueprint for login
+login_bp = Blueprint("login", __name__)
 
 # Firebase API key (found in your Firebase project settings)
-API_KEY = "AIzaSyABWnW5iZqksWvL6RaKG8ShjmkR-wG1OpI"
+API_KEY = os.getenv("FIREBASE_API_KEY")  # Preferably use environment variables
 
-@app.route('/login', methods=['POST'])
-def login():
+@login_bp.route('/login', methods=['POST'])
+def login_user():
     data = request.json
     email = data.get('email')
     password = data.get('password')
@@ -37,6 +38,9 @@ def login():
 
     except Exception as e:
         return jsonify({"message": str(e)}), 500
+
+# Make sure to register this Blueprint in your main app.py file
+
     
     
 
