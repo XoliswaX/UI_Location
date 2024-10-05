@@ -39,7 +39,7 @@ def login_user():
     except Exception as e:
         return jsonify({"message": str(e)}), 500
 
-# Make sure to register this Blueprint in your main app.py file
+
 
     
     
